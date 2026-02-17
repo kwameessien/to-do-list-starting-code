@@ -5,4 +5,6 @@ const create = (description) => pool.query(
   [description],
 );
 
-module.exports = { create };
+const get = () => pool.query('SELECT * FROM todo');
+
+module.exports = { create, get };
