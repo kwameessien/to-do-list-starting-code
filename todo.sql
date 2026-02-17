@@ -1,6 +1,8 @@
 CREATE DATABASE todo;
 
+\c todo
+
 CREATE TABLE todo(
     todo_id SERIAL PRIMARY KEY,
-    description VARCHAR(225) NOT NULL 
+    description VARCHAR(255) NOT NULL
 );
