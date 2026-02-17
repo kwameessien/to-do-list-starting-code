@@ -29,4 +29,17 @@ const create = (req, res) => {
   });
 };
 
-module.exports = { create, get, remove };
+const read = async (req, res) => {
+  try {
+    const result = await get();
+    res.statusCode = 200;
+    res.end(JSON.stringify({ data: result.rows }));
+  } catch (e) {
+    res.statusCode = 500;
+    res.end(JSON.stringify({ error: 'Failed to fetch todos' }));
+  }
+};
+
+module.exports = {
+  create, read, get, remove,
+};
