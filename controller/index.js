@@ -40,6 +40,28 @@ const read = async (req, res) => {
   }
 };
 
+const removeTodo = async (req, res) => {
+  const id = req.params?.id ?? req.query?.id;
+  if (!id) {
+    res.statusCode = 400;
+    res.end(JSON.stringify({ error: 'Id is required' }));
+    return;
+  }
+  try {
+    const result = await remove(id);
+    if (result.rowCount === 0) {
+      res.statusCode = 404;
+      res.end(JSON.stringify({ error: 'Todo not found' }));
+      return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify({ message: 'Todo deleted successfully' }));
+  } catch (e) {
+    res.statusCode = 500;
+    res.end(JSON.stringify({ error: 'Failed to delete todo' }));
+  }
+};
+
 module.exports = {
-  create, read, get, remove,
+  create, read, get, remove, removeTodo,
 };
